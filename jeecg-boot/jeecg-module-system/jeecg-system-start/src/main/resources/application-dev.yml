@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8083
   undertow:
     decode-url: true # 启用URL解码
     # max-http-post-size: 10MB # 平替 tomcat server.tomcat.max-swallow-siz， undertow该值默认为-1
@@ -12,7 +12,7 @@ server:
     include-stacktrace: ALWAYS
     include-message: ALWAYS
   servlet:
-    context-path: /jeecg-boot
+    context-path: /my
   compression:
     enabled: true
     min-response-size: 1024
@@ -153,7 +153,7 @@ spring:
         master:
           url: jdbc:mysql://127.0.0.1:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
           username: root
-          password: root
+          password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
           # 多数据源配置
           #multi-datasource1:
@@ -161,10 +161,10 @@ spring:
           #username: root
           #password: root
           #driver-class-name: com.mysql.cj.jdbc.Driver
-  #redis 配置
+#  redis 配置
   redis:
-    database: 0
-    host: 127.0.0.1
+    database: 4
+    host: localhost
     port: 6379
     password: ''
 #mybatis plus 设置
@@ -300,8 +300,8 @@ knife4j:
   production: false
   basic:
     enable: false
-    username: jeecg
-    password: jeecg1314
+    username: ''
+    password: ''
 #第三方登录
 justauth:
   enabled: true
