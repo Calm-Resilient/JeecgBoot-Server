@@ -25,6 +25,9 @@ management:
         include: metrics,jeecghttptrace
 
 spring:
+  main:
+    #启动加速,(开发环境建议开启,生产环境关闭)
+    lazy-initialization: true
   flyway:
     # 是否启用flyway
     enabled: true

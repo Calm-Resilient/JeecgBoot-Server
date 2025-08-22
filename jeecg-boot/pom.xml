@@ -8,9 +8,9 @@
 
 	<developers>
 		<developer>
-			<name>北京国炬信息技术有限公司</name>
-			<email>jeecgos@163.com</email>
-			<url>http://www.guojusoft.com</url>
+			<name>XXXXXXXXX公司</name>
+			<email>XXXXXX@XXX.com</email>
+			<url>http://www.XXXXXX.com</url>
 		</developer>
 	</developers>
 
@@ -91,6 +91,7 @@
     </modules>
 
 	<repositories>
+		<!--阿里云仓库-->
 		<repository>
             <id>aliyun</id>
             <name>aliyun Repository</name>
@@ -99,6 +100,7 @@
 				<enabled>false</enabled>
 			</snapshots>
         </repository>
+
 		<repository>
             <id>jeecg</id>
             <name>jeecg Repository</name>
@@ -107,6 +109,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+
 		<repository>
 			<id>jeecg-snapshots</id>
 			<name>jeecg-snapshots Repository</name>

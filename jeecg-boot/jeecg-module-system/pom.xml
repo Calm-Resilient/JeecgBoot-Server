@@ -17,5 +17,11 @@
         <module>jeecg-system-biz</module>
         <module>jeecg-system-start</module>
     </modules>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.jeecgframework.boot</groupId>
+            <artifactId>custom-biz-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
