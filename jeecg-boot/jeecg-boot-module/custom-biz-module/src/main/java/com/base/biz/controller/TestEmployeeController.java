@@ -74,13 +74,12 @@ public class TestEmployeeController extends JeecgController<TestEmployee, ITestE
 	@Operation(summary="测试员工表-分页列表查询")
 	@GetMapping(value = "/list")
 	@PermissionData
-	public Result<IPage<TestEmployee>> queryPageList(@RequestBody TestEmployee testEmployee,
+	public Result<IPage<TestEmployee>> queryPageList( TestEmployee testEmployee,
 								   @RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
 								   @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,
 								   HttpServletRequest req) {
 
-		LambdaQueryWrapper<TestEmployee> queryWrapper = QueryGenerator.initQueryWrapper(testEmployee, req.getParameterMap());
-		LambdaQueryWrapper<TestEmployee> eq = Wrappers.<TestEmployee>lambdaQuery().eq(TestEmployee::getId, 1);
+		QueryWrapper<TestEmployee> queryWrapper = QueryGenerator.initQueryWrapper(testEmployee, req.getParameterMap());
 		Page<TestEmployee> page = new Page<TestEmployee>(pageNo, pageSize);
 		IPage<TestEmployee> pageList = testEmployeeService.page(page, queryWrapper);
 		return Result.OK(pageList);

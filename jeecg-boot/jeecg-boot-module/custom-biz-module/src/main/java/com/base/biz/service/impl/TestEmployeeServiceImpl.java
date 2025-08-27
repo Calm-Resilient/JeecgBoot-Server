@@ -1,6 +1,9 @@
 package com.base.biz.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.base.biz.entity.TestEmployee;
 import com.base.biz.mapper.TestEmployeeMapper;
@@ -23,11 +26,10 @@ import java.util.List;
 public class TestEmployeeServiceImpl extends ServiceImpl<TestEmployeeMapper, TestEmployee> implements ITestEmployeeService {
 
     @Override
-    public List<TestEmployee>   getOneTest() {
-        QueryWrapper<TestEmployee> queryWrapper = QueryGenerator.initQueryWrapper(new TestEmployee(),null);
-
-        List<TestEmployee> testEmployee = this.list(queryWrapper);
-        log.debug(testEmployee.toString());
-        return testEmployee;
+    public List<TestEmployee>  getOneTest() {
+        QueryWrapper<TestEmployee> queryWrapper = QueryGenerator.initQueryWrapper(new TestEmployee());
+        queryWrapper.lambda().ge(TestEmployee::getAge,22);
+        List<TestEmployee> list = this.list(queryWrapper);
+        return list;
     }
 }

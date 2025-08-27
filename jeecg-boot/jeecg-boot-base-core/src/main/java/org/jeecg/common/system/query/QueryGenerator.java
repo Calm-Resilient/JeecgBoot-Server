@@ -96,6 +96,14 @@ public class QueryGenerator {
 		log.debug("---查询条件构造器初始化完成,耗时:"+(System.currentTimeMillis()-start)+"毫秒----");
 		return queryWrapper;
 	}
+
+	public static <T> QueryWrapper<T> initQueryWrapper(T searchObj){
+		long start = System.currentTimeMillis();
+		QueryWrapper<T> queryWrapper = new QueryWrapper<T>();
+		installMplus(queryWrapper, searchObj, null, null);
+		log.debug("---查询条件构造器初始化完成,耗时:"+(System.currentTimeMillis()-start)+"毫秒----");
+		return queryWrapper;
+	}
 	
 	//update-begin---author:chenrui ---date:20240527  for：[TV360X-378]增加自定义字段查询规则功能------------
 	/**
