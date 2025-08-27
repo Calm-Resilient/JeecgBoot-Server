@@ -12,7 +12,7 @@ server:
     include-stacktrace: ALWAYS
     include-message: ALWAYS
   servlet:
-    context-path: /my
+    context-path: /base
   compression:
     enabled: true
     min-response-size: 1024
@@ -186,6 +186,8 @@ mybatis-plus:
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 返回类型为Map,显示null对应的字段
     call-setters-on-nulls: true
+    #开启SQL日志打印
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #jeecg专用配置
 minidao:
   base-package: org.jeecg.modules.jmreport.*,org.jeecg.modules.drag.*
@@ -197,6 +199,8 @@ jeecg:
     apiKey: ??
     apiHost: https://api.deepseek.com/v1
     timeout: 60
+  datasource:
+    data-permission: true # 确保这里是 true
   # AIRag向量库
   ai-rag:
     embed-store:

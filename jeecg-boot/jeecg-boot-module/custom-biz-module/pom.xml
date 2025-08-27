@@ -10,6 +10,12 @@
         <artifactId>jeecg-boot-module</artifactId>
         <version>3.8.2</version>
     </parent>
+    <dependencies>
+        <dependency>
+            <groupId>org.jeecgframework.boot</groupId>
+            <artifactId>jeecg-boot-base-core</artifactId>
+        </dependency>
+    </dependencies>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

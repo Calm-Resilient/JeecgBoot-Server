@@ -2,6 +2,7 @@ package org.jeecg;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jeecg.common.util.oConvertUtils;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -18,7 +19,8 @@ import java.util.Map;
 * 单体启动类（采用此类启动为单体模式）
 */
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"org.jeecg", "com.base"})
+@MapperScan({"org.jeecg.modules.**.mapper","com.base.biz.mapper"})
 public class JeecgSystemApplication extends SpringBootServletInitializer {
 
     @Override
