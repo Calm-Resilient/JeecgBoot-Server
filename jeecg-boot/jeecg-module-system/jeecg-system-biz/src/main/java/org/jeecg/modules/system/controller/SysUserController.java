@@ -144,7 +144,7 @@ public class SysUserController {
      */
     @RequiresPermissions("system:user:listAll")
     @RequestMapping(value = "/listAll", method = RequestMethod.GET)
-    @PermissionData(pageComponent = "layouts/RouteView")
+    @PermissionData(pageComponent = "system/user/index")
     public Result<IPage<SysUser>> queryAllPageList(SysUser user, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                    @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
         QueryWrapper<SysUser> queryWrapper = QueryGenerator.initQueryWrapper(user, req.getParameterMap());
@@ -201,7 +201,7 @@ public class SysUserController {
                     //vue3.0前端只传递了departIds
                     departs=user.getDepartIds();
                 }
-                //用户表字段org_code不能在这里设置他的值
+                //用户表字段org_code不能在这里设置他的值  是在创建的用户登录时候赋值
                 user.setOrgCode(null);
                 // 修改用户走一个service 保证事务
                 //获取租户ids

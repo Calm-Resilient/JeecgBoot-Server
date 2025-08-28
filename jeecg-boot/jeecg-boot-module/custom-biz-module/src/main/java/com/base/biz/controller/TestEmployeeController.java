@@ -10,16 +10,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import lombok.Data;
-import org.apache.shiro.SecurityUtils;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.aspect.annotation.PermissionData;
 import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.system.query.QueryRuleEnum;
-import org.jeecg.common.system.vo.LoginUser;
 import org.jeecg.common.util.oConvertUtils;
 import com.base.biz.entity.TestEmployee;
 import com.base.biz.service.ITestEmployeeService;
@@ -45,12 +39,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.jeecg.common.aspect.annotation.AutoLog;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import retrofit2.http.GET;
-
-/**
+ /**
  * @Description: 测试员工表
  * @Author: jeecg-boot
- * @Date:   2025-08-26
+ * @Date:   2025-08-28
  * @Version: V1.0
  */
 @Tag(name="测试员工表")
@@ -73,13 +65,14 @@ public class TestEmployeeController extends JeecgController<TestEmployee, ITestE
 	//@AutoLog(value = "测试员工表-分页列表查询")
 	@Operation(summary="测试员工表-分页列表查询")
 	@GetMapping(value = "/list")
-	@PermissionData
-	public Result<IPage<TestEmployee>> queryPageList( TestEmployee testEmployee,
+	@PermissionData(pageComponent = "biz/TestEmployeeList")
+	public Result<IPage<TestEmployee>> queryPageList(TestEmployee testEmployee,
 								   @RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
 								   @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,
 								   HttpServletRequest req) {
 
-		QueryWrapper<TestEmployee> queryWrapper = QueryGenerator.initQueryWrapper(testEmployee, req.getParameterMap());
+
+        QueryWrapper<TestEmployee> queryWrapper = QueryGenerator.initQueryWrapper(testEmployee, req.getParameterMap());
 		Page<TestEmployee> page = new Page<TestEmployee>(pageNo, pageSize);
 		IPage<TestEmployee> pageList = testEmployeeService.page(page, queryWrapper);
 		return Result.OK(pageList);
@@ -130,19 +123,6 @@ public class TestEmployeeController extends JeecgController<TestEmployee, ITestE
 		testEmployeeService.removeById(id);
 		return Result.OK("删除成功!");
 	}
-
-
-	 @AutoLog(value = "测试权限")
-	 @Operation(summary="测试权限")
-	 @GetMapping(value = "/test")
-	 @PermissionData(pageComponent = "biz/TestEmployeeList")
-
-	 public Result<List<TestEmployee> > getOne() {
-		 LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
-		 log.info("当前用户部门: {}", sysUser.getOrgCode());
-		 List<TestEmployee>  oneTest = testEmployeeService.getOneTest();
-		 return Result.OK(oneTest);
-	 }
 	
 	/**
 	 *  批量删除
