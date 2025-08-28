@@ -31,6 +31,7 @@ import org.jeecg.modules.system.service.impl.SysBaseApiImpl;
 import org.jeecg.modules.system.util.RandImageUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +50,10 @@ import java.util.stream.Collectors;
 @Tag(name="用户登录")
 @Slf4j
 public class LoginController {
+	//是否开启验证码,默认值为true
+	@Value("${captcha.enabled:true}")
+	private  boolean captchaFlag;
+
 	@Autowired
 	private ISysUserService sysUserService;
 	@Autowired
@@ -82,7 +87,7 @@ public class LoginController {
 
 		// step.1 验证码check
         String captcha = sysLoginModel.getCaptcha();
-        if(captcha==null){
+        if(captcha==null && captchaFlag){
             result.error500("验证码无效");
             return result;
         }
@@ -94,7 +99,7 @@ public class LoginController {
 		//update-end---author:chenrui ---date:20250107  for：[QQYUN-10775]验证码可以复用 #7674------------
 		Object checkCode = redisUtil.get(realKey);
 		//当进入登录页时，有一定几率出现验证码错误 #1714
-		if(checkCode==null || !checkCode.toString().equals(lowerCaseCaptcha)) {
+		if((checkCode==null || !checkCode.toString().equals(lowerCaseCaptcha)) && captchaFlag ) {
             log.warn("验证码错误，key= {} , Ui checkCode= {}, Redis checkCode = {}", sysLoginModel.getCheckKey(), lowerCaseCaptcha, checkCode);
 			result.error500("验证码错误");
 			// 改成特殊的code 便于前端判断

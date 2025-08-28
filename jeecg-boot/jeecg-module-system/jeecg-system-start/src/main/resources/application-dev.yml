@@ -334,3 +334,7 @@ justauth:
     type: default
     prefix: 'demo::'
     timeout: 1h
+
+#是否开启登录验证码
+captcha:
+  enabled: false
