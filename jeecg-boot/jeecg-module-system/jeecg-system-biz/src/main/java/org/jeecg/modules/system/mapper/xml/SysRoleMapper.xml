@@ -3,28 +3,33 @@
 <mapper namespace="org.jeecg.modules.system.mapper.SysRoleMapper">
 
     <select id="listAllSysRole" resultType="org.jeecg.modules.system.entity.SysRole">
-        SELECT * from sys_role
-        WHERE 1=1
-        <if test="role.roleName!='' and role.roleName!=null">
-            <bind name="bindKeyword" value="'%'+role.roleName+'%'"/>
+        SELECT *
+        from sys_role
+        WHERE 1 = 1
+        <if test="role.roleName != '' and role.roleName != null">
+            <bind name="bindKeyword" value="'%' + role.roleName + '%'"/>
             AND role_name like #{bindKeyword}
         </if>
-        <if test="role.roleCode!='' and role.roleCode!=null">
+        <if test="role.sysOrgCode != '' and role.sysOrgCode != null">
+            AND sys_org_code LIKE CONCAT(#{role.sysOrgCode}, '%')
+        </if>
+        <if test="role.roleCode != '' and role.roleCode != null">
             <choose>
                 <when test="role.roleCode.indexOf(',') != -1">
                     AND role_code in
-                    <foreach item="item" index="index" collection="role.roleCode.split(',')" open="(" separator="," close=")">
+                    <foreach item="item" index="index" collection="role.roleCode.split(',')" open="(" separator=","
+                             close=")">
                         #{item}
                     </foreach>
                 </when>
                 <otherwise>
-                    <bind name="bindRoleCode" value="'%'+role.roleCode+'%'"/>
+                    <bind name="bindRoleCode" value="'%' + role.roleCode + '%'"/>
                     AND role_code like #{bindRoleCode}
                 </otherwise>
             </choose>
         </if>
         <!--增加id查询 for:【issues/7948】角色解决根据id查询回显不对-->
-        <if test="role.id!='' and role.id!=null">
+        <if test="role.id != '' and role.id != null">
             <choose>
                 <when test="role.id.indexOf(',') != -1">
                     AND id in
@@ -37,7 +42,7 @@
                 </otherwise>
             </choose>
         </if>
-       order by create_time desc
+        order by create_time desc
     </select>
    
 

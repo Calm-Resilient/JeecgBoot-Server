@@ -11,6 +11,12 @@
 			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - %msg%n</pattern>-->
 			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{50}:%L) - %msg%n</pattern>
 		</encoder>
+		<!-- 过滤掉WARN级别 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>DENY</onMatch>
+			<onMismatch>NEUTRAL</onMismatch>
+		</filter>
 	</appender>
 
 	<!-- 按照每天生成日志文件 -->
@@ -19,7 +25,7 @@
 			<!--日志文件输出的文件名 -->
 			<FileNamePattern>${LOG_HOME}/jeecgboot-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
 			<!--日志文件保留天数 -->
-			<MaxHistory>30</MaxHistory>
+			<MaxHistory>5</MaxHistory>
 			<maxFileSize>10MB</maxFileSize>
 		</rollingPolicy>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -69,9 +75,9 @@
 	<!-- 日志输出级别 -->
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />
-		<appender-ref ref="FILE" />
+<!--		<appender-ref ref="FILE" />-->
 		<appender-ref ref="HTML" />
-		<appender-ref ref="FILE_HTML" />
+<!--		<appender-ref ref="FILE_HTML" />-->
 	</root>
 
 </configuration>

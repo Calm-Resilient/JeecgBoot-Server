@@ -115,6 +115,8 @@ public class SysRoleController {
 		//IPage<SysRole> pageList = sysRoleService.page(page, queryWrapper);
 		Page<SysRole> page = new Page<SysRole>(pageNo, pageSize);
 		//换成不做租户隔离的方法，实际上还是存在缺陷（缺陷：如果开启租户隔离，虽然能看到其他租户下的角色，编辑会提示报错）
+		LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+		role.setSysOrgCode(loginUser.getOrgCode());
 		IPage<SysRole> pageList = sysRoleService.listAllSysRole(page, role);
 		result.setSuccess(true);
 		result.setResult(pageList);
@@ -157,6 +159,7 @@ public class SysRoleController {
     @RequiresPermissions("system:role:add")
 	public Result<SysRole> add(@RequestBody SysRole role) {
 		Result<SysRole> result = new Result<SysRole>();
+		LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
 		try {
 			//开启多租户隔离,角色id自动生成10位
 			//update-begin---author:wangshuai---date:2024-05-23---for:【TV360X-42】角色新增时设置的编码，保存后不一致---
@@ -165,6 +168,8 @@ public class SysRoleController {
 				role.setRoleCode(RandomUtil.randomString(10));
 			}
 			role.setCreateTime(new Date());
+			role.setSysOrgCode(loginUser.getOrgCode());
+
 			sysRoleService.save(role);
 			result.success("添加成功！");
 		} catch (Exception e) {
