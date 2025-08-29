@@ -17,5 +17,7 @@ public class LowCodeModeConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(lowCodeModeInterceptor).addPathPatterns(LowCodeUrlsEnum.getLowCodeInterceptUrls());
+
     }
+
 }

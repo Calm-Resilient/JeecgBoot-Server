@@ -204,6 +204,11 @@ jeecg:
     timeout: 60
   datasource:
     data-permission: true # 确保这里是 true
+
+  base:
+    shiro:
+      exclude-urls:
+        - /skip/**
   # AIRag向量库
   ai-rag:
     embed-store:
@@ -235,7 +240,7 @@ jeecg:
     #webapp文件路径
     webapp: /opt/webapp
   shiro:
-    excludeUrls: /test/jeecgDemo/demo3,/test/jeecgDemo/redisDemo/**,/bigscreen/category/**,/bigscreen/visual/**,/bigscreen/map/**,/jmreport/bigscreen2/**
+    excludeUrls: /test/jeecgDemo/demo3,/test/jeecgDemo/redisDemo/**,/bigscreen/category/**,/bigscreen/visual/**,/bigscreen/map/**,/jmreport/bigscreen2/**,/skip/**
   #阿里云oss存储和大鱼短信秘钥配置
   oss:
     accessKey: ??

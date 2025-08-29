@@ -20,7 +20,7 @@ import java.util.Map;
 */
 @Slf4j
 @SpringBootApplication(scanBasePackages = {"org.jeecg", "com.base"})
-@MapperScan({"org.jeecg.modules.**.mapper","com.base.biz.mapper"})
+@MapperScan({"org.jeecg.modules.**.mapper","com.base.biz.mapper","com.base.skip.**.mapper"})
 public class JeecgSystemApplication extends SpringBootServletInitializer {
 
     @Override
